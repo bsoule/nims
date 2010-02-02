@@ -1,0 +1,73 @@
+See etherpad.com/nims
+See http://svn.yootles.com/nims
+
+Instructions for compiling the NIMS plugin:
+ 1. Go here to find out the latest release of Adium: 
+    http://trac.adiumx.com/wiki/GettingReleaseAdiumSource
+ 2. Do an svn checkout to get it, putting it somewhere like adium-1.3.2
+ 3. Make a symlink to it:  ln -s adium-1.3.2 adium-release 
+ 4. Compile Adium, either in xcode or from the command line: 
+    Xcode: open adium-release/Adium.xcodeproj
+      Select "Development" as the build configuration.
+        and build it.
+    Cmd line: Edit adium-release/Makefile as follows:
+      Change this line:
+        DEFAULT_BUILDCONFIGURATION=Deployment-Debug
+      To this:
+        DEFAULT_BUILDCONFIGURATION=Development
+      And then run "make adium".
+    You now have the latest adium source compiled and can link to it in your 
+    plugin.
+ 5. Copy NIMSplugin/NIMSplugin.xcodeproj/project.pbxproj.template to 
+         NIMSplugin/NIMSplugin.xcodeproj/project.pbxproj
+    and grep for "dreeves", changing to your path to adium-release.
+ 6. Open the plugin project in xcode:
+    open NIMSplugin/NIMSplugin.xcodeproj
+ 7. Build it.
+
+--- Deploy latest version to yootles.com ---
+
+run deploy.sh  (NB: you have to be in the nims directory to run this)
+
+
+---------------------------------------------------------------------------
+
+For refactoring (this is kinda awesome):
+./codemod.py --extensions h,m 'regexMatchingOldThing' 'whatToChangeItTo'
+
+See the top of codemod.py for more details.
+
+---------------------------------------------------------------------------
+
+SCHEDULED FOR DELETION:
+
+from the original deploy instructions:
+  open NIMSplugin.xcodeproj and edit active target build settings.
+under the build tab, right click on the target (Debug/Release) and 
+select "edit configurations". At the very bottom of the edit window
+you can set which target configuration command line builds use.
+=> set this to use the Release version.
+
+xcode settings for making a plugin: 
+
+Build Tab under project or target settings:
+
+User-Defined setting
+  ADIUM = /Users/dreeves/tmp/adium-1.3
+Deployment 
+  Deployment Target = Mac OS X 10.3
+Linking
+  Other Linker Flags = -undefined dynamic_lookup
+Search Paths
+  Framework Search Paths
+    $ADIUM/build/Development
+    $SRCROOT/Frameworks
+    "$ADIUM/Frameworks/AIUtilities Frameworks/build"
+    $ADIUM/build
+  Header Search Paths
+    $ADIUM/Source
+    $SRCROOT/Frameworks/libglib.frameworks/Headers
+
+Properties Tab:
+
+Creator = AdIM
