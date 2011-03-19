@@ -1,5 +1,4 @@
-See etherpad.com/nims
-See http://svn.yootles.com/nims
+http://yootles.com/nims
 
 Instructions for compiling the NIMS plugin:
  1. Go here to find out the latest release of Adium: 
@@ -39,35 +38,3 @@ See the top of codemod.py for more details.
 
 ---------------------------------------------------------------------------
 
-SCHEDULED FOR DELETION:
-
-from the original deploy instructions:
-  open NIMSplugin.xcodeproj and edit active target build settings.
-under the build tab, right click on the target (Debug/Release) and 
-select "edit configurations". At the very bottom of the edit window
-you can set which target configuration command line builds use.
-=> set this to use the Release version.
-
-xcode settings for making a plugin: 
-
-Build Tab under project or target settings:
-
-User-Defined setting
-  ADIUM = /Users/dreeves/tmp/adium-1.3
-Deployment 
-  Deployment Target = Mac OS X 10.3
-Linking
-  Other Linker Flags = -undefined dynamic_lookup
-Search Paths
-  Framework Search Paths
-    $ADIUM/build/Development
-    $SRCROOT/Frameworks
-    "$ADIUM/Frameworks/AIUtilities Frameworks/build"
-    $ADIUM/build
-  Header Search Paths
-    $ADIUM/Source
-    $SRCROOT/Frameworks/libglib.frameworks/Headers
-
-Properties Tab:
-
-Creator = AdIM
